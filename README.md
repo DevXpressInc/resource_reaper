@@ -7,7 +7,6 @@ A lightweight resource manager for Dart and Flutter applications that handles th
 🗑️ Manual Control: Clear, purge, or remove items manually when needed.
 ⚡ Lightweight & Simple: Minimal dependencies, easy to integrate into existing projects.
 
-
 ## Usage
 
 ```dart
