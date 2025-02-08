@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Apply Pub Score fixes
+
 ## 1.0.2
 
 - Broaden compatibility for clock package

@@ -12,7 +12,6 @@ enum Level {
   final String emoji;
 }
 
-
 void reaperLog(String message, [Level logLevel = Level.info]) {
   log(
     '${logLevel.emoji} $message',

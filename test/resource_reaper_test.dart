@@ -13,14 +13,13 @@ class Connection {
   void close() {
     _isClosed = true;
   }
-  
-  @override
+
   /// Allows to match resource by id for Reaper.
+  @override
   bool operator ==(Object other) {
-    return identical(this, other) || 
-      (other is Connection && other.id == id);
+    return identical(this, other) || (other is Connection && other.id == id);
   }
-  
+
   @override
   int get hashCode => id.hashCode;
 }
@@ -30,7 +29,8 @@ void main() {
     test('Overflow bucket', () {
       final bucketManager = ResourceReaper<Connection>(
         size: 5,
-        name: 'Bucket', onDisposeItem: (connection) => connection.close(),
+        name: 'Bucket',
+        onDisposeItem: (connection) => connection.close(),
       );
       final connections = List.generate(5, (index) {
         final connection = Connection(index.toString());
@@ -48,17 +48,22 @@ void main() {
         return connection;
       });
 
-      expect(additionalconnections.every((connection) => !connection.isClosed), isTrue);
+      expect(additionalconnections.every((connection) => !connection.isClosed),
+          isTrue);
 
       final expectedIsClosed =
           List.unmodifiable([true, true, false, false, false]);
-      final result = connections.map((connection) => connection.isClosed).toList();
+      final result =
+          connections.map((connection) => connection.isClosed).toList();
 
       expect(result, equals(expectedIsClosed));
     });
 
     test('Clear bucket', () {
-      final bucketManager = ResourceReaper<Connection>(name: 'Bucket', onDisposeItem: (connection) => connection.close(), size: 5);
+      final bucketManager = ResourceReaper<Connection>(
+          name: 'Bucket',
+          onDisposeItem: (connection) => connection.close(),
+          size: 5);
       final initialconnections = List.generate(5, (index) {
         final connection = Connection(index.toString());
         bucketManager.add(connection);
@@ -68,11 +73,15 @@ void main() {
 
       bucketManager.clear();
 
-      expect(initialconnections.every((connection) => connection.isClosed), isTrue);
+      expect(initialconnections.every((connection) => connection.isClosed),
+          isTrue);
     });
 
     test('Remove from bucket', () {
-      final bucketManager = ResourceReaper<Connection>(name: 'Bucket', onDisposeItem: (connection) => connection.close(), size: 5);
+      final bucketManager = ResourceReaper<Connection>(
+          name: 'Bucket',
+          onDisposeItem: (connection) => connection.close(),
+          size: 5);
       final initialconnections = List.generate(5, (index) {
         final connection = Connection(index.toString());
         bucketManager.add(connection);
@@ -86,7 +95,8 @@ void main() {
 
       final expectedIsClosed =
           List.unmodifiable([true, true, false, true, true]);
-      final result = initialconnections.map((connection) => connection.isClosed).toList();
+      final result =
+          initialconnections.map((connection) => connection.isClosed).toList();
 
       expect(result, equals(expectedIsClosed));
     });
@@ -116,8 +126,11 @@ void main() {
         });
         async.elapse(Duration(minutes: 3));
 
-        expect(initialconnections.every((connection) => connection.isClosed), isTrue);
-        expect(additionalconnections.every((connection) => !connection.isClosed), isTrue);
+        expect(initialconnections.every((connection) => connection.isClosed),
+            isTrue);
+        expect(
+            additionalconnections.every((connection) => !connection.isClosed),
+            isTrue);
       });
     });
   });

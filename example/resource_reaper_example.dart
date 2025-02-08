@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:resource_reaper/resource_reaper.dart';
 
-/// Example resource that needs disposal 
+/// Example resource that needs disposal
 class Connection {
   final String id;
   Connection(this.id);
@@ -9,14 +9,14 @@ class Connection {
   void close() {
     print('Connection $id closed.');
   }
-  
+
   @override
+
   /// Allows to match resource by id for Reaper.
   bool operator ==(Object other) {
-    return identical(this, other) || 
-      (other is Connection && other.id == id);
+    return identical(this, other) || (other is Connection && other.id == id);
   }
-  
+
   @override
   int get hashCode => id.hashCode;
 }
@@ -44,7 +44,8 @@ void main() {
   // Removing a connection manually
   final connectionE = Connection('C');
   reaper.add(connectionE);
-  reaper.remove(connectionE, dispose: true); // Immediately disposes Connection C
+  reaper.remove(connectionE,
+      dispose: true); // Immediately disposes Connection C
 
   // Purging expired connections manually (optional)
   Timer(Duration(seconds: 6), () {

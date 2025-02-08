@@ -5,25 +5,25 @@ import 'package:clock/clock.dart';
 import 'package:resource_reaper/src/logger.dart';
 
 /// [ResourceReaper] is a resource manager that handles lifecycle and disposal of items of type [T].
-/// 
+///
 /// If the [size] limit is reached, older resources are disposed through the [onDisposeItem] callback.
-/// 
+///
 /// If set, items added to this resource manager are tracked for [itemDuration] and will be purged at [purgeInterval] if they are expired.
-/// 
+///
 /// This allows for keeping cached resources alive for longer, while preventing memory leaks if too many are cached.
-/// 
+///
 /// ⚠️ **Important:**
-/// 
+///
 /// Always call [dispose] when the reaper is no longer needed to release timers and free up system resources.
 ///
 /// Failing to call [dispose] may lead to memory leaks due to lingering timers.
-/// 
+///
 /// ⚠️ **Thread Safety Notice:**
 ///
 /// [ResourceReaper] is designed for single-threaded environments, like typical Flutter apps.
-/// 
-/// It is **not thread-safe** for concurrent access across multiple isolates. 
-/// If you plan to use this class in a multi-isolate environment, you are responsible for 
+///
+/// It is **not thread-safe** for concurrent access across multiple isolates.
+/// If you plan to use this class in a multi-isolate environment, you are responsible for
 /// implementing appropriate synchronization mechanisms.
 ///
 /// For most Flutter use cases, this class is safe to use without additional thread safety measures.
@@ -38,7 +38,7 @@ class ResourceReaper<T> {
   final void Function(T item) onDisposeItem;
 
   /// The duration after which an item is considered expired and eligible for purging.
-  /// 
+  ///
   /// If null, items never expire.
   final Duration? itemDuration;
 
@@ -73,13 +73,16 @@ class ResourceReaper<T> {
     this.verbose = false,
   }) : purgeInterval = purgeInterval ?? itemDuration {
     if (itemDuration?.isNegative ?? false) {
-      throw ArgumentError.value(itemDuration, 'itemDuration', 'itemDuration for $name Reaper cannot be negative');
+      throw ArgumentError.value(itemDuration, 'itemDuration',
+          'itemDuration for $name Reaper cannot be negative');
     }
     if (purgeInterval?.isNegative ?? false) {
-      throw ArgumentError.value(purgeInterval, 'purgeInterval', 'purgeInterval for $name Reaper cannot be negative');
+      throw ArgumentError.value(purgeInterval, 'purgeInterval',
+          'purgeInterval for $name Reaper cannot be negative');
     }
     if (size < _minSize) {
-      throw ArgumentError.value(size, 'size', 'size for $name Reaper must be greater or equal than $_minSize');
+      throw ArgumentError.value(size, 'size',
+          'size for $name Reaper must be greater or equal than $_minSize');
     }
   }
 
@@ -93,7 +96,7 @@ class ResourceReaper<T> {
   bool get isNotEmpty => _queue.isNotEmpty;
 
   /// Adds an [item] to the Reaper for tracking.
-  /// 
+  ///
   /// If the reaper exceed the [size] limit, the oldest [item] will be disposed of automatically through the invokation of [onDisposeItem].
   void add(T item) {
     if (_queue.isEmpty) _onFirstItemAdded();
@@ -110,13 +113,13 @@ class ResourceReaper<T> {
   }
 
   /// Removes an [item] from the Reaper manually.
-  /// 
+  ///
   /// The item is identified using the `==` operator. For custom classes,
   /// ensure that the `==` operator (and `hashCode`) are properly overridden
-  /// to guarantee accurate item removal. 
-  /// 
+  /// to guarantee accurate item removal.
+  ///
   /// If multiple items in the Reaper match [item], they will all be removed.
-  /// 
+  ///
   /// If [dispose] is set to `true`, the [onDisposeItem] callback is invoked immediately on that [item].
   void remove(T item, {bool dispose = false}) {
     List<T> removedItems = [];
@@ -158,7 +161,7 @@ class ResourceReaper<T> {
   }
 
   /// Purges expired items from the reaper based on their expiration timestamps.
-  /// 
+  ///
   /// This is triggered automatically based on [purgeInterval], but can also be called manually.
   void purge() {
     final now = clock.now();
@@ -180,7 +183,7 @@ class ResourceReaper<T> {
   /// Disposes of the reaper, cancelling any active timers.
   ///
   /// This should be called when the reaper is no longer needed to clean up resources.
-  /// 
+  ///
   /// By default, this disposes of all remaining items, unless [disposeItems] is explicitely set to false.
   void dispose({bool disposeItems = true}) {
     _timer?.cancel();
