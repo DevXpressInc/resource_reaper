@@ -38,6 +38,8 @@ void main() {
 }
 ```
 
+For example usage with [riverpod](https://github.com/rrousselGit/riverpod), refer to [this example](https://github.com/DevXpressInc/resource_reaper/tree/main/examples/riverpod_usage).
+
 ## API Overview
 
 | **Parameter**        | **Type**                      | **Required** | **Description**                                                                 |

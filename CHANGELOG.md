@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Add riverpod usage example
+
 ## 1.0.3
 
 - Apply Pub Score fixes
