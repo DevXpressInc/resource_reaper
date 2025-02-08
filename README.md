@@ -3,8 +3,11 @@ A lightweight resource manager for Dart and Flutter applications that handles th
 ## Features
 
 ✅ Automatic Disposal: Dispose of items when exceeding a maximum size limit.
+
 ⏱️ Time-Based Purging: Automatically purge items after a configurable expiration duration.
+
 🗑️ Manual Control: Clear, purge, or remove items manually when needed.
+
 ⚡ Lightweight & Simple: Minimal dependencies, easy to integrate into existing projects.
 
 ## Usage
