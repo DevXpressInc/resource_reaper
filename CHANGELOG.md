@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Add topics to improve discoverability
+
 ## 1.0.4
 
 - Add riverpod usage example

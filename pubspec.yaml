@@ -1,8 +1,9 @@
 name: resource_reaper
 description: A lightweight resource manager for Dart and Flutter applications that handles the lifecycle and disposal of resources. Helps prevent memory leaks when caching data.
-version: 1.0.4
+version: 1.0.5
 repository: https://github.com/DevXpressInc/resource_reaper
 issue_tracker: https://github.com/DevXpressInc/resource_reaper/issues
+topics: ['cache', 'state-management', 'riverpod', 'keep-alive', 'disposal']
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
